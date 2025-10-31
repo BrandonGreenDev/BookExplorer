@@ -1,12 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-
-// Import custom theme variables (must come first)
 @use './theme.scss';
 
-// Import Material prebuilt theme (simpler approach for Angular Material 20)
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-// Global styles
 html, body {
   height: 100%;
 }
@@ -19,12 +14,10 @@ body {
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-// Smooth scrolling
 html {
   scroll-behavior: smooth;
 }
 
-// Global animation keyframes
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -47,7 +40,6 @@ html {
   }
 }
 
-// Page transition animation
 .page-content {
   animation: fadeIn var(--transition-slow) ease-out;
 }
