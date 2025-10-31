@@ -1,0 +1,61 @@
+
+.book-card {
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: slideInUp var(--transition-slow) ease-out backwards;
+
+  // Stagger animation for each card
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 50}ms;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow);
+  }
+}
+
+.book-cover {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  background-color: var(--surface-color);
+  transition: background-color var(--transition-normal);
+}
+
+mat-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.book-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.4;
+  max-height: 2.8em; /* 2 lines * 1.4 line-height */
+}
+
+.book-author {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.book-year {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin: 0;
+}

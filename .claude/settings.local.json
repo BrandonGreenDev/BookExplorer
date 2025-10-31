@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip:*)",
+      "Bash(fold:*)",
+      "Bash(python3:*)",
+      "Read(//mnt/c/Users/jk3_2/OneDrive/Documents/GitHub/**)",
+      "Bash(npx ng add:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Read(//mnt/c/Users/jk3_2/OneDrive/Desktop/**)",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

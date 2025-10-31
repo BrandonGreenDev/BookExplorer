@@ -1,0 +1,75 @@
+<div class="detail-container page-content">
+  <button mat-raised-button color="primary" class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    Back to Search
+  </button>
+
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+    <p>Loading book details...</p>
+  </div>
+
+  <div class="error-container" *ngIf="hasError && !isLoading">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <h2>Book Not Found</h2>
+    <p>Sorry, we couldn't load the details for this book.</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      Return to Search
+    </button>
+  </div>
+
+  <div class="book-details" *ngIf="(book$ | async) as book">
+    <mat-card class="detail-card">
+      <div class="book-header">
+        <div class="cover-section">
+          <img
+            [src]="getCoverUrl(book.covers)"
+            [alt]="book.title"
+            class="cover-image"
+          />
+        </div>
+
+        <div class="info-section">
+          <h1 class="book-title">{{ book.title }}</h1>
+
+          <p class="book-authors">
+            <mat-icon>person</mat-icon>
+            <span>{{ getAuthorNames(book.authors) }}</span>
+          </p>
+
+          <mat-card-content>
+            <div class="metadata-item" *ngIf="book.first_publish_date">
+              <mat-icon>calendar_today</mat-icon>
+              <span><strong>First Published:</strong> {{ book.first_publish_date }}</span>
+            </div>
+
+            <div class="metadata-item" *ngIf="book.number_of_pages">
+              <mat-icon>menu_book</mat-icon>
+              <span><strong>Pages:</strong> {{ book.number_of_pages }}</span>
+            </div>
+          </mat-card-content>
+        </div>
+      </div>
+
+      <mat-card-content class="description-section">
+        <h2>
+          <mat-icon>description</mat-icon>
+          Description
+        </h2>
+        <p class="description-text">{{ getDescription(book.description) }}</p>
+      </mat-card-content>
+
+      <mat-card-content class="subjects-section" *ngIf="hasSubjects(book.subjects)">
+        <h2>
+          <mat-icon>category</mat-icon>
+          Subjects & Genres
+        </h2>
+        <mat-chip-set>
+          <mat-chip *ngFor="let subject of book.subjects?.slice(0, 10)">
+            {{ subject }}
+          </mat-chip>
+        </mat-chip-set>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
