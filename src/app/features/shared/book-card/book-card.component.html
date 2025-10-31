@@ -1,14 +1,15 @@
 <mat-card class="book-card" (click)="onCardClick()">
   <img
     mat-card-image
-    [src]="getCoverUrl()"
+    [src]="coverUrl"
     [alt]="book.title"
     class="book-cover"
+    loading="lazy"
   />
 
   <mat-card-content>
     <h3 class="book-title">{{ book.title }}</h3>
-    <p class="book-author">{{ getFirstAuthor() }}</p>
+    <p class="book-author">{{ firstAuthor }}</p>
     <p class="book-year" *ngIf="book.first_publish_year">
       {{ book.first_publish_year }}
     </p>

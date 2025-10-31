@@ -96,7 +96,7 @@
     <!-- Books grid -->
     <div class="books-grid" *ngIf="!isLoading && books.length > 0">
       <app-book-card
-        *ngFor="let book of books"
+        *ngFor="let book of books; trackBy: trackByKey"
         [book]="book"
         (bookClick)="onBookClick($event)"
       ></app-book-card>

@@ -176,29 +176,15 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     // Wait a bit for the DOM to be ready
     setTimeout(() => {
       if (this.scrollTrigger) {
-        console.log('Setting up intersection observer');
         this.observer = new IntersectionObserver(
           (entries) => {
-            console.log('Intersection observed:', {
-              isIntersecting: entries[0].isIntersecting,
-              hasMoreResults: this.hasMoreResults,
-              isLoadingMore: this.isLoadingMore,
-              isLoading: this.isLoading,
-              booksLength: this.books.length,
-              totalResults: this.totalResults
-            });
-
             if (entries[0].isIntersecting && this.hasMoreResults && !this.isLoadingMore && !this.isLoading) {
-              console.log('Conditions met - loading more books...');
               this.loadMore();
             }
           },
           { threshold: 0, rootMargin: '200px' }
         );
         this.observer.observe(this.scrollTrigger.nativeElement);
-        console.log('Intersection observer set up successfully');
-      } else {
-        console.warn('Scroll trigger element not found');
       }
     }, 500);
   }
@@ -214,15 +200,12 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /* loadMore - Load next page of results */
   loadMore(): void {
-    console.log('loadMore called');
     if (!this.hasMoreResults || this.isLoadingMore) {
-      console.log('Skipping loadMore - hasMoreResults:', this.hasMoreResults, 'isLoadingMore:', this.isLoadingMore);
       return;
     }
 
     this.isLoadingMore = true;
     this.currentPage++;
-    console.log('Fetching page:', this.currentPage);
 
     const searchFilters: SearchFilters = {
       author: this.filterForm.value.author || undefined,
@@ -233,11 +216,9 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     this.bookService.searchBooks(this.searchQuery$.value, searchFilters, this.currentPage)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
-        console.log('Received results:', result.books.length, 'Total before:', this.books.length);
         this.books = [...this.books, ...result.books];
         this.hasMoreResults = this.books.length < result.totalResults;
         this.isLoadingMore = false;
-        console.log('Books after append:', this.books.length, 'Has more:', this.hasMoreResults);
       });
   }
 
@@ -282,5 +263,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     // Extract work ID from key
     const workId = workKey.replace('/works/', '');
     this.router.navigate(['/book', workId]);
+  }
+
+  /* trackByKey - TrackBy function for ngFor to improve performance
+   - Helps Angular track items by unique identifier instead of object reference */
+  trackByKey(index: number, book: Book): string {
+    return book.key;
   }
 }
