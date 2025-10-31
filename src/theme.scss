@@ -44,60 +44,66 @@
     color: var(--text-primary) !important;
   }
 
-  .mat-mdc-form-field {
-    --mdc-filled-text-field-container-color: transparent;
-    --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.3);
-    --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.5);
-    --mdc-outlined-text-field-focus-outline-color: #90caf9;
-    --mdc-outlined-text-field-label-text-color: rgba(255, 255, 255, 0.7);
-    --mat-form-field-state-layer-color: transparent;
-
-    // This is the key fix - the notch background that was showing as a line
-    .mdc-notched-outline__notch {
-      background-color: var(--surface-color) !important;
-    }
-
-    .mat-mdc-input-element {
-      color: rgba(255, 255, 255, 0.95) !important;
-      caret-color: #90caf9;
-    }
-
-    .mat-mdc-select {
-      color: rgba(255, 255, 255, 0.95) !important;
-    }
-
-    .mat-mdc-floating-label {
-      color: rgba(255, 255, 255, 0.7) !important;
-    }
-
-    .mdc-notched-outline__leading,
-    .mdc-notched-outline__notch,
-    .mdc-notched-outline__trailing {
-      border-color: rgba(255, 255, 255, 0.3) !important;
-    }
-
-    &:hover .mdc-notched-outline__leading,
-    &:hover .mdc-notched-outline__notch,
-    &:hover .mdc-notched-outline__trailing {
-      border-color: rgba(255, 255, 255, 0.5) !important;
-    }
-
-    &.mat-focused .mdc-notched-outline__leading,
-    &.mat-focused .mdc-notched-outline__notch,
-    &.mat-focused .mdc-notched-outline__trailing {
-      border-color: #90caf9 !important;
-    }
+  // Input fields
+  .mat-mdc-input-element {
+    color: rgba(255, 255, 255, 0.95) !important;
+    caret-color: #90caf9 !important;
   }
 
+  // Select dropdowns - target all possible classes
+  .mat-mdc-select,
+  .mat-mdc-select-value,
+  .mat-mdc-select-value-text,
+  .mat-mdc-select-trigger {
+    color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .mat-mdc-select-arrow {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  // Labels
+  .mat-mdc-floating-label,
+  .mdc-floating-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  // Outlines
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .mat-mdc-form-field:hover .mdc-notched-outline__leading,
+  .mat-mdc-form-field:hover .mdc-notched-outline__notch,
+  .mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+  .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+  .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+    border-color: #90caf9 !important;
+  }
+
+  // Notch background fix
+  .mdc-notched-outline__notch {
+    background-color: var(--background-color) !important;
+  }
+
+  // Placeholders
   ::placeholder {
     color: rgba(255, 255, 255, 0.5) !important;
     opacity: 1;
   }
 
+  // Select panel (dropdown menu)
   .mat-mdc-select-panel {
     background-color: #2d2d2d !important;
   }
 
+  // Options in dropdown
   .mat-mdc-option {
     color: rgba(255, 255, 255, 0.87) !important;
 
@@ -106,14 +112,17 @@
     }
   }
 
+  // Icons
   .mat-icon {
     color: rgba(255, 255, 255, 0.7);
   }
 
+  // Progress spinner
   .mat-mdc-progress-spinner {
     --mdc-circular-progress-active-indicator-color: #90caf9;
   }
 
+  // Chips
   .mat-mdc-chip {
     --mdc-chip-elevated-container-color: rgba(144, 202, 249, 0.15) !important;
     --mdc-chip-label-text-color: rgba(255, 255, 255, 0.95) !important;
