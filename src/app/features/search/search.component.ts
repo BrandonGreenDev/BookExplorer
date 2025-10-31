@@ -15,6 +15,7 @@ import { debounceTime, distinctUntilChanged, switchMap, startWith, tap, takeUnti
 import { Book, SearchFilters } from '../../core/models/book.model';
 import { BookService } from '../../core/services/book.service';
 import { ThemeService } from '../../core/services/theme.service';
+import { SearchStateService } from '../../core/services/search-state.service';
 import { BookCardComponent } from '../shared/book-card/book-card.component';
 
 
@@ -94,11 +95,20 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private bookService: BookService,
     private router: Router,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    private searchStateService: SearchStateService
   ) { }
 
   /* ngOnInit - Initializes reactive search pipeline */
   ngOnInit(): void {
+    // Restore state if available (user navigated back from book details)
+    const savedState = this.searchStateService.getState();
+    if (savedState) {
+      this.searchControl.setValue(savedState.query, { emitEvent: false });
+      this.filterForm.patchValue(savedState.filters, { emitEvent: false });
+      this.searchQuery$.next(savedState.query);
+    }
+
     // Connect search control to search query
     this.searchControl.valueChanges.pipe(
       takeUntil(this.destroy$)
@@ -252,11 +262,23 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     this.totalResults = 0;
     this.currentPage = 1;
     this.hasMoreResults = true;
+    // Clear saved state
+    this.searchStateService.clearState();
   }
 
   /* onBookClick - Handles click event from BookCardComponent
    - navigates to book detail view when user clicks a card */
   onBookClick(workKey: string): void {
+    // Save current search state before navigating away
+    this.searchStateService.saveState({
+      query: this.searchQuery$.value,
+      filters: {
+        author: this.filterForm.value.author || '',
+        year: this.filterForm.value.year || null,
+        subject: this.filterForm.value.subject || ''
+      }
+    });
+
     // Extract work ID from key
     const workId = workKey.replace('/works/', '');
     this.router.navigate(['/book', workId]);
