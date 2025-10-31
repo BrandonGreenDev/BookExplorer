@@ -184,4 +184,35 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+
+  // Better chip visibility - target all chip-related classes
+  ::ng-deep mat-chip,
+  ::ng-deep .mat-mdc-chip,
+  ::ng-deep .mdc-evolution-chip {
+    background-color: #e3f2fd !important;
+    color: #1565c0 !important;
+    font-weight: 500 !important;
+    border: 1px solid #90caf9 !important;
+
+    .mat-mdc-chip-action-label,
+    .mdc-evolution-chip__text-label {
+      color: #1565c0 !important;
+    }
+  }
+}
+
+// Dark mode chip overrides (outside subjects-section to ensure it applies globally)
+.dark-theme .subjects-section {
+  ::ng-deep mat-chip,
+  ::ng-deep .mat-mdc-chip,
+  ::ng-deep .mdc-evolution-chip {
+    background-color: rgba(144, 202, 249, 0.25) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(144, 202, 249, 0.5) !important;
+
+    .mat-mdc-chip-action-label,
+    .mdc-evolution-chip__text-label {
+      color: #ffffff !important;
+    }
+  }
 }

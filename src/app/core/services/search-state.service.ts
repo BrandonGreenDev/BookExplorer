@@ -13,17 +13,7 @@ export interface SearchState {
   scrollPosition?: number;
 }
 
-/**
- * SearchStateService - Manages and persists search state across navigation
- *
- * Purpose: Preserves search query, filters, and scroll position when user
- * navigates away from search page (e.g., to book details) and returns back
- *
- * Usage:
- * - Search component saves state before navigation
- * - Search component restores state on init if available
- * - State is cleared when user explicitly starts new search
- */
+/* SearchStateService manages and persists search state across navigation */
 @Injectable({
   providedIn: 'root'
 })

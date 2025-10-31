@@ -1,6 +1,4 @@
-// Custom CSS variables for theming
 :root {
-  // Light theme colors
   --background-color: #fafafa;
   --surface-color: #ffffff;
   --surface-elevated: #ffffff;
@@ -10,7 +8,6 @@
   --divider-color: rgba(0, 0, 0, 0.12);
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-  // Spacing scale
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -18,20 +15,16 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
 
-  // Border radius
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
 
-  // Transitions
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// Dark theme class
 .dark-theme {
-  // Dark theme colors - Better contrast
   --background-color: #1a1a1a;
   --surface-color: #2d2d2d;
   --surface-elevated: #3a3a3a;
@@ -41,17 +34,15 @@
   --divider-color: rgba(255, 255, 255, 0.12);
   --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
 
-  // Material component overrides for better visibility
   .mat-mdc-card {
     background-color: var(--surface-color) !important;
     color: var(--text-primary) !important;
   }
 
-  // Form fields - much better contrast
   .mat-mdc-form-field {
     --mdc-filled-text-field-container-color: transparent;
-    --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.3);
-    --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.5);
+    --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.5);
+    --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.7);
     --mdc-outlined-text-field-focus-outline-color: #90caf9;
     --mdc-outlined-text-field-label-text-color: rgba(255, 255, 255, 0.7);
     --mat-form-field-state-layer-color: rgba(255, 255, 255, 0.87);
@@ -68,15 +59,25 @@
     .mat-mdc-floating-label {
       color: rgba(255, 255, 255, 0.7) !important;
     }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    &:hover .mdc-notched-outline__leading,
+    &:hover .mdc-notched-outline__notch,
+    &:hover .mdc-notched-outline__trailing {
+      border-color: rgba(255, 255, 255, 0.7) !important;
+    }
   }
 
-  // Make sure input placeholder is visible
   ::placeholder {
     color: rgba(255, 255, 255, 0.5) !important;
     opacity: 1;
   }
 
-  // Dropdown panels
   .mat-mdc-select-panel {
     background-color: #2d2d2d !important;
   }
@@ -89,13 +90,19 @@
     }
   }
 
-  // Icons should be visible
   .mat-icon {
     color: rgba(255, 255, 255, 0.7);
   }
 
-  // Spinner
   .mat-mdc-progress-spinner {
     --mdc-circular-progress-active-indicator-color: #90caf9;
+  }
+
+  .mat-mdc-chip {
+    --mdc-chip-elevated-container-color: rgba(144, 202, 249, 0.15) !important;
+    --mdc-chip-label-text-color: rgba(255, 255, 255, 0.95) !important;
+    background-color: rgba(144, 202, 249, 0.15) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(144, 202, 249, 0.3) !important;
   }
 }
