@@ -13,15 +13,25 @@
 
 <div class="search-container page-content">
   <div class="search-section">
-    <mat-form-field class="search-field" appearance="outline">
-      <mat-label>Search for books</mat-label>
-      <input
-        matInput
-        type="text"
-        placeholder="Enter book title, author, genre, or keyword..."
-        [formControl]="searchControl"
-      />
-    </mat-form-field>
+    <div class="search-row">
+      <mat-form-field appearance="outline" class="search-type-field">
+        <mat-label>Search By</mat-label>
+        <mat-select [formControl]="searchTypeControl">
+          <mat-option value="title">Title</mat-option>
+          <mat-option value="author">Author</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="search-field" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          type="text"
+          [placeholder]="searchTypeControl.value === 'title' ? 'Enter book title...' : 'Enter author name...'"
+          [formControl]="searchControl"
+        />
+      </mat-form-field>
+    </div>
   </div>
 
   <div class="filters-section" [formGroup]="filterForm">
@@ -31,7 +41,7 @@
     </h3>
 
     <div class="filters-grid">
-      <mat-form-field appearance="outline" class="filter-field">
+      <mat-form-field appearance="outline" class="filter-field" *ngIf="searchTypeControl.value !== 'author'">
         <mat-label>Author Name</mat-label>
         <input
           matInput

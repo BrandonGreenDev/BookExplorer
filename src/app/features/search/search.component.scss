@@ -11,8 +11,28 @@
 .search-section {
   margin-bottom: 32px;
 
+  .search-row {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  .search-type-field {
+    flex-shrink: 0;
+    width: 140px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
   .search-field {
-    width: 100%;
+    flex: 1;
     font-size: 18px;
 
     .mat-mdc-form-field-flex {

@@ -69,6 +69,9 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   /* searchControl - FormControl for search input */
   searchControl = new FormControl<string>('', { nonNullable: true });
 
+  /* searchTypeControl - FormControl for search type (title or author) */
+  searchTypeControl = new FormControl<'title' | 'author'>('title', { nonNullable: true });
+
   /* filterForm - reactive form containing 3 filter controls */
   filterForm = new FormGroup({
     author: new FormControl<string>('', { nonNullable: true }),
@@ -121,6 +124,9 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchQuery$,
       this.filterForm.valueChanges.pipe(
         startWith(this.filterForm.value)
+      ),
+      this.searchTypeControl.valueChanges.pipe(
+        startWith(this.searchTypeControl.value)
       )
     ]).pipe(
       // wait 300ms after user stops typing
@@ -130,7 +136,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
         return prev[0] === curr[0] &&
           prev[1].author === curr[1].author &&
           prev[1].year === curr[1].year &&
-          prev[1].subject === curr[1].subject;
+          prev[1].subject === curr[1].subject &&
+          prev[2] === curr[2];
       }),
       tap(() => {
         this.isLoading = true;
@@ -139,13 +146,13 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
         this.hasMoreResults = true;
       }),
       // switch map for cancelling outdated requests
-      switchMap(([query, filters]) => {
+      switchMap(([query, filters, searchType]) => {
         const searchFilters: SearchFilters = {
           author: filters.author || undefined,
           year: filters.year || undefined,
           subject: filters.subject || undefined
         };
-        return this.bookService.searchBooks(query, searchFilters, 1);
+        return this.bookService.searchBooks(query, searchFilters, 1, searchType);
       }),
       tap(result => {
         this.books = result.books;
@@ -217,7 +224,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       subject: this.filterForm.value.subject || undefined
     };
 
-    this.bookService.searchBooks(this.searchQuery$.value, searchFilters, this.currentPage)
+    this.bookService.searchBooks(this.searchQuery$.value, searchFilters, this.currentPage, this.searchTypeControl.value)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         const previousCount = this.books.length;

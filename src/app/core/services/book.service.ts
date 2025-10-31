@@ -17,7 +17,7 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
   /* searchBooks searches for books using Open Library API with filters and pagination */
-  searchBooks(query: string, filters: SearchFilters = {}, page: number = 1): Observable<{books: Book[], totalResults: number}> {
+  searchBooks(query: string, filters: SearchFilters = {}, page: number = 1, searchType: 'title' | 'author' = 'title'): Observable<{books: Book[], totalResults: number}> {
     // little time saver if no query provided
     if (!query || query.trim().length === 0) {
       return of({books: [], totalResults: 0});
@@ -27,8 +27,10 @@ export class BookService {
     const offset = (page - 1) * limit;
 
     // Build http parameters from query and filters
+    // Use specific field search (title or author) for best relevance and performance
+    const trimmedQuery = query.trim();
     let params = new HttpParams()
-      .set('q', query.trim())
+      .set(searchType, trimmedQuery)
       .set('limit', limit.toString())
       .set('offset', offset.toString());
 
