@@ -1,22 +1,23 @@
 
 .book-card {
   cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: all var(--transition-normal);
   height: 100%;
   display: flex;
   flex-direction: column;
-  animation: slideInUp var(--transition-slow) ease-out backwards;
-
-  // Stagger animation for each card
-  @for $i from 1 through 20 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{$i * 50}ms;
-    }
-  }
+  box-shadow: var(--card-shadow);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--card-shadow);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--card-hover-shadow);
+    border-color: rgba(102, 126, 234, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-4px) scale(0.98);
   }
 }
 

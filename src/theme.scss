@@ -1,12 +1,16 @@
 :root {
-  --background-color: #fafafa;
+  --background-color: #f5f7fa;
+  --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --surface-color: #ffffff;
   --surface-elevated: #ffffff;
   --text-primary: rgba(0, 0, 0, 0.87);
   --text-secondary: rgba(0, 0, 0, 0.6);
   --text-tertiary: rgba(0, 0, 0, 0.4);
   --divider-color: rgba(0, 0, 0, 0.12);
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --filter-shadow: 0 2px 16px rgba(102, 126, 234, 0.15);
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -15,9 +19,9 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -33,6 +37,7 @@
   --text-tertiary: rgba(255, 255, 255, 0.5);
   --divider-color: rgba(255, 255, 255, 0.12);
   --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  --filter-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 
   .mat-mdc-card {
     background-color: var(--surface-color) !important;
@@ -41,11 +46,16 @@
 
   .mat-mdc-form-field {
     --mdc-filled-text-field-container-color: transparent;
-    --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.5);
-    --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.7);
+    --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.3);
+    --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.5);
     --mdc-outlined-text-field-focus-outline-color: #90caf9;
     --mdc-outlined-text-field-label-text-color: rgba(255, 255, 255, 0.7);
-    --mat-form-field-state-layer-color: rgba(255, 255, 255, 0.87);
+    --mat-form-field-state-layer-color: transparent;
+
+    // This is the key fix - the notch background that was showing as a line
+    .mdc-notched-outline__notch {
+      background-color: var(--surface-color) !important;
+    }
 
     .mat-mdc-input-element {
       color: rgba(255, 255, 255, 0.95) !important;
@@ -63,13 +73,19 @@
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,
     .mdc-notched-outline__trailing {
-      border-color: rgba(255, 255, 255, 0.5) !important;
+      border-color: rgba(255, 255, 255, 0.3) !important;
     }
 
     &:hover .mdc-notched-outline__leading,
     &:hover .mdc-notched-outline__notch,
     &:hover .mdc-notched-outline__trailing {
-      border-color: rgba(255, 255, 255, 0.7) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    &.mat-focused .mdc-notched-outline__leading,
+    &.mat-focused .mdc-notched-outline__notch,
+    &.mat-focused .mdc-notched-outline__trailing {
+      border-color: #90caf9 !important;
     }
   }
 

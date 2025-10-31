@@ -17,6 +17,7 @@ import { BookService } from '../../core/services/book.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { SearchStateService } from '../../core/services/search-state.service';
 import { BookCardComponent } from '../shared/book-card/book-card.component';
+import { gsap } from 'gsap';
 
 
 @Component({
@@ -152,7 +153,10 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
         this.hasMoreResults = result.books.length < result.totalResults;
         this.isLoading = false;
         // Re-setup observer after results load
-        setTimeout(() => this.setupIntersectionObserver(), 100);
+        setTimeout(() => {
+          this.setupIntersectionObserver();
+          this.animateSearchResults();
+        }, 100);
       }),
       takeUntil(this.destroy$)
     ).subscribe();
@@ -216,9 +220,13 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     this.bookService.searchBooks(this.searchQuery$.value, searchFilters, this.currentPage)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
+        const previousCount = this.books.length;
         this.books = [...this.books, ...result.books];
         this.hasMoreResults = this.books.length < result.totalResults;
         this.isLoadingMore = false;
+
+        // Animate newly loaded cards
+        setTimeout(() => this.animateNewCards(previousCount), 50);
       });
   }
 
@@ -263,6 +271,31 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     // Extract work ID from key
     const workId = workKey.replace('/works/', '');
     this.router.navigate(['/book', workId]);
+  }
+
+  /* animateSearchResults - Stagger animation for initial search results */
+  private animateSearchResults(): void {
+    const cards = document.querySelectorAll('.books-grid app-book-card');
+    if (cards.length > 0) {
+      gsap.fromTo(cards,
+        { opacity: 0, y: 40, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.05, ease: 'back.out(1.2)', clearProps: 'all' }
+      );
+    }
+  }
+
+  /* animateNewCards - Animate cards loaded via infinite scroll */
+  private animateNewCards(previousCount: number): void {
+    const allCards = document.querySelectorAll('.books-grid app-book-card');
+    // Get only the newly added cards (starting from previousCount index)
+    const newCards = Array.from(allCards).slice(previousCount);
+
+    if (newCards.length > 0) {
+      gsap.fromTo(newCards,
+        { opacity: 0, y: 30, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.03, ease: 'power2.out', clearProps: 'all' }
+      );
+    }
   }
 
   /* trackByKey - TrackBy function for ngFor to improve performance
