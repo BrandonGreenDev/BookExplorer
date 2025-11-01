@@ -11,6 +11,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { BookDetail } from '../../core/models/book.model';
 import { BookService } from '../../core/services/book.service';
+import { FavoritesService } from '../../core/services/favorites.service';
 import { gsap } from 'gsap';
 
 /* BookDetailComponent - Displays detailed information about a specific book */
@@ -41,10 +42,14 @@ export class BookDetailComponent implements OnInit, AfterViewInit {
   /* hasError - Error state indicator */
   hasError = false;
 
+  /* currentBook - Store current book for favorites functionality */
+  currentBook: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private bookService: BookService
+    private bookService: BookService,
+    public favoritesService: FavoritesService
   ) { }
 
   /*  RxJS Operators:
@@ -60,9 +65,19 @@ export class BookDetailComponent implements OnInit, AfterViewInit {
     }
 
     this.book$ = this.bookService.getBookDetails(this.workId).pipe(
-      tap(() => {
+      tap((book) => {
         this.isLoading = false;
         this.hasError = false;
+        // Store current book for favorites functionality
+        if (book) {
+          this.currentBook = {
+            key: `/works/${this.workId}`,
+            title: book.title,
+            author_name: book.authors ? [this.getAuthorNames(book.authors)] : [],
+            first_publish_year: book.first_publish_date ? parseInt(book.first_publish_date) : undefined,
+            cover_i: book.covers ? book.covers[0] : undefined
+          };
+        }
       }),
       catchError(error => {
         console.error('Error loading book details:', error);
@@ -115,9 +130,21 @@ export class BookDetailComponent implements OnInit, AfterViewInit {
     return authorKeys.join(', ');
   }
 
-  /*  hasSubjects - Checks if book has subject tags. Conditionally shows subjects section in template */
+  /* hasSubjects - Checks if book has subject tags. Conditionally shows subjects section in template */
   hasSubjects(subjects?: string[]): boolean {
     return subjects !== undefined && subjects.length > 0;
+  }
+
+  toggleFavorite(): void {
+    // Need to construct a Book object from the detail data
+    const book = this.currentBook;
+    if (book) {
+      this.favoritesService.toggleFavorite(book);
+    }
+  }
+
+  isFavorite(): boolean {
+    return this.workId ? this.favoritesService.isFavoriteSync(`/works/${this.workId}`) : false;
   }
 
   /* ngAfterViewInit - Animate page entrance with GSAP */

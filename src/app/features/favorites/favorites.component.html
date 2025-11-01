@@ -1,0 +1,23 @@
+<div class="favorites-container">
+  <header class="favorites-header">
+    <h1>My Favorites</h1>
+    <p class="favorites-count">{{ favoritesService.count() }} book{{ favoritesService.count() === 1 ? '' : 's' }}</p>
+  </header>
+
+  <div class="favorites-grid" *ngIf="favoritesService.favorites().length > 0">
+    <app-book-card
+      *ngFor="let book of favoritesService.favorites()"
+      [book]="book"
+      (bookClick)="onBookClick($event)">
+    </app-book-card>
+  </div>
+
+  <div class="empty-state" *ngIf="favoritesService.favorites().length === 0">
+    <mat-icon>favorite_border</mat-icon>
+    <h2>No favorites yet</h2>
+    <p>Start adding books to your favorites to see them here!</p>
+    <button mat-raised-button color="primary" routerLink="/search">
+      Browse Books
+    </button>
+  </div>
+</div>

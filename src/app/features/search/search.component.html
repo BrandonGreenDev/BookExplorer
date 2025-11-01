@@ -1,6 +1,12 @@
 <mat-toolbar color="primary">
   <span>Book Explorer</span>
   <span class="spacer"></span>
+  <a routerLink="/favorites" mat-icon-button class="nav-link" 
+     matTooltip="View favorites" aria-label="View favorites">
+    <mat-icon [matBadge]="favoritesService.count()" 
+              [matBadgeHidden]="favoritesService.count() === 0" 
+              matBadgeColor="warn">favorite</mat-icon>
+  </a>
   <button
     mat-icon-button
     (click)="themeService.toggleTheme()"

@@ -47,6 +47,18 @@
               <mat-icon>menu_book</mat-icon>
               <span><strong>Pages:</strong> {{ book.number_of_pages }}</span>
             </div>
+
+            <div class="favorite-section">
+              <button 
+                mat-raised-button 
+                [color]="isFavorite() ? 'warn' : 'primary'"
+                class="favorite-detail-button"
+                (click)="toggleFavorite()"
+                [attr.aria-label]="isFavorite() ? 'Remove from favorites' : 'Add to favorites'">
+                <mat-icon>{{ isFavorite() ? 'favorite' : 'favorite_border' }}</mat-icon>
+                <span>{{ isFavorite() ? 'Remove from Favorites' : 'Add to Favorites' }}</span>
+              </button>
+            </div>
           </mat-card-content>
         </div>
       </div>

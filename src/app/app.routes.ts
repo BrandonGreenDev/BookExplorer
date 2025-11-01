@@ -16,6 +16,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/book-detail/book-detail.component').then(m => m.BookDetailComponent)
   },
   {
+    path: 'favorites',
+    loadComponent: () => import('./features/favorites/favorites.component').then(m => m.FavoritesComponent)
+  },
+  {
     path: '**',
     redirectTo: '/search'
   }

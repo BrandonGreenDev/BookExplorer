@@ -1,4 +1,14 @@
 <mat-card class="book-card" (click)="onCardClick()">
+  <button 
+    mat-icon-button 
+    class="favorite-button" 
+    (click)="onFavoriteClick($event)"
+    [attr.aria-label]="isFavorite() ? 'Remove from favorites' : 'Add to favorites'">
+    <mat-icon [class.favorited]="isFavorite()">
+      {{ isFavorite() ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+  </button>
+
   <img
     mat-card-image
     [src]="coverUrl"

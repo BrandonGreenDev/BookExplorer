@@ -60,3 +60,43 @@ mat-card-content {
   color: var(--text-tertiary);
   margin: 0;
 }
+
+.favorite-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-normal);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+  }
+
+  mat-icon {
+    color: #666;
+    transition: color var(--transition-normal);
+
+    &.favorited {
+      color: #e91e63;
+    }
+  }
+}
+
+.dark-theme .favorite-button {
+  background-color: rgba(30, 30, 30, 0.9);
+
+  &:hover {
+    background-color: rgba(30, 30, 30, 1);
+  }
+
+  mat-icon {
+    color: #aaa;
+
+    &.favorited {
+      color: #f48fb1;
+    }
+  }
+}

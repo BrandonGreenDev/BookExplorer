@@ -10,12 +10,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
+import { RouterModule } from '@angular/router';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, startWith, tap, takeUntil } from 'rxjs/operators';
 import { Book, SearchFilters } from '../../core/models/book.model';
 import { BookService } from '../../core/services/book.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { SearchStateService } from '../../core/services/search-state.service';
+import { FavoritesService } from '../../core/services/favorites.service';
 import { BookCardComponent } from '../shared/book-card/book-card.component';
 import { gsap } from 'gsap';
 
@@ -35,6 +38,8 @@ import { gsap } from 'gsap';
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatBadgeModule,
+    RouterModule,
     BookCardComponent
   ]
 })
@@ -100,7 +105,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     private bookService: BookService,
     private router: Router,
     public themeService: ThemeService,
-    private searchStateService: SearchStateService
+    private searchStateService: SearchStateService,
+    public favoritesService: FavoritesService
   ) { }
 
   /* ngOnInit - Initializes reactive search pipeline */
