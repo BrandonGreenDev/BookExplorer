@@ -16,8 +16,10 @@ body {
 
 /* Gradient toolbar styling */
 .mat-toolbar.mat-primary {
-  background: var(--accent-gradient) !important;
-  box-shadow: 0 2px 12px rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, #E91E63 0%, #FFA726 100%) !important;
+  box-shadow: 0 2px 12px rgba(233, 30, 99, 0.3);
+  position: relative;
+  z-index: 10;
 }
 
 /* Enhanced Material form field styling */
@@ -69,4 +71,84 @@ html {
 
 .page-content {
   animation: fadeIn var(--transition-slow) ease-out;
+}
+
+/* Book stack aesthetic on page sides */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  width: 100px;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url('./assets/images/book-stack.svg');
+  background-size: 100px 400px;
+  background-repeat: repeat-y;
+  background-position: center top;
+  opacity: 0.8;
+  transition: opacity var(--transition-normal);
+}
+
+/* Left side book stack */
+body::before {
+  left: -20px;
+}
+
+/* Right side book stack */
+body::after {
+  right: -20px;
+  transform: scaleX(-1); /* Mirror the image for variety */
+}
+
+/* Adjust book stacks for smaller screens */
+@media (max-width: 1400px) {
+  body::before,
+  body::after {
+    opacity: 0.5;
+    width: 80px;
+    background-size: 80px 320px;
+  }
+  body::before { left: -30px; }
+  body::after { right: -30px; }
+}
+
+@media (max-width: 1200px) {
+  body::before,
+  body::after {
+    opacity: 0.4;
+    width: 70px;
+    background-size: 70px 280px;
+  }
+  body::before { left: -35px; }
+  body::after { right: -35px; }
+}
+
+@media (max-width: 768px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+
+/* Subtle animation for book stacks */
+@keyframes bookFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+body::before {
+  animation: bookFloat 8s ease-in-out infinite;
+}
+
+body::after {
+  animation: bookFloat 8s ease-in-out infinite reverse;
+}
+
+/* Dark theme adjustments */
+.dark-theme body::before,
+.dark-theme body::after {
+  opacity: 0.4;
+  filter: brightness(0.8);
 }

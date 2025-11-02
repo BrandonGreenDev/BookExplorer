@@ -1,0 +1,57 @@
+<svg width="100" height="400" viewBox="0 0 100 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bottom books -->
+  <rect x="10" y="380" width="80" height="15" fill="#f39c12" rx="2"/>
+  <rect x="15" y="365" width="70" height="12" fill="#e67e22" rx="2"/>
+  <rect x="12" y="350" width="76" height="10" fill="#d35400" rx="2"/>
+  
+  <!-- Second stack -->
+  <rect x="5" y="330" width="85" height="18" fill="#3498db" rx="2"/>
+  <rect x="8" y="315" width="82" height="12" fill="#2980b9" rx="2"/>
+  <rect x="12" y="300" width="78" height="10" fill="#1f618d" rx="2"/>
+  
+  <!-- Third stack -->
+  <rect x="15" y="280" width="70" height="15" fill="#e74c3c" rx="2"/>
+  <rect x="10" y="265" width="75" height="12" fill="#c0392b" rx="2"/>
+  <rect x="18" y="250" width="68" height="10" fill="#922b21" rx="2"/>
+  
+  <!-- Fourth stack -->
+  <rect x="8" y="230" width="82" height="16" fill="#27ae60" rx="2"/>
+  <rect x="12" y="215" width="78" height="12" fill="#229954" rx="2"/>
+  <rect x="6" y="200" width="86" height="10" fill="#1e8449" rx="2"/>
+  
+  <!-- Fifth stack -->
+  <rect x="14" y="180" width="72" height="15" fill="#8e44ad" rx="2"/>
+  <rect x="10" y="165" width="76" height="12" fill="#7d3c98" rx="2"/>
+  <rect x="16" y="150" width="70" height="10" fill="#6c3483" rx="2"/>
+  
+  <!-- Sixth stack -->
+  <rect x="7" y="130" width="84" height="16" fill="#f1c40f" rx="2"/>
+  <rect x="11" y="115" width="80" height="12" fill="#f4d03f" rx="2"/>
+  <rect x="9" y="100" width="82" height="10" fill="#f7dc6f" rx="2"/>
+  
+  <!-- Seventh stack -->
+  <rect x="13" y="80" width="74" height="15" fill="#e91e63" rx="2"/>
+  <rect x="8" y="65" width="79" height="12" fill="#ec407a" rx="2"/>
+  <rect x="15" y="50" width="72" height="10" fill="#f06292" rx="2"/>
+  
+  <!-- Top stack -->
+  <rect x="6" y="30" width="86" height="16" fill="#00bcd4" rx="2"/>
+  <rect x="10" y="15" width="82" height="12" fill="#26c6da" rx="2"/>
+  <rect x="12" y="0" width="78" height="10" fill="#4dd0e1" rx="2"/>
+  
+  <!-- Book spines with subtle lines -->
+  <g stroke="#ffffff" stroke-width="0.5" opacity="0.3">
+    <!-- Add some spine details -->
+    <line x1="15" y1="380" x2="15" y2="395"/>
+    <line x1="25" y1="380" x2="25" y2="395"/>
+    <line x1="35" y1="380" x2="35" y2="395"/>
+    
+    <line x1="10" y1="330" x2="10" y2="348"/>
+    <line x1="20" y1="330" x2="20" y2="348"/>
+    <line x1="30" y1="330" x2="30" y2="348"/>
+    
+    <line x1="20" y1="280" x2="20" y2="295"/>
+    <line x1="30" y1="280" x2="30" y2="295"/>
+    <line x1="40" y1="280" x2="40" y2="295"/>
+  </g>
+</svg>
