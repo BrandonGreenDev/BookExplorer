@@ -12,7 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { RouterModule } from '@angular/router';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, startWith, tap, takeUntil } from 'rxjs/operators';
 import { Book, SearchFilters } from '../../core/models/book.model';
 import { BookService } from '../../core/services/book.service';
@@ -74,8 +74,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   /* searchControl - FormControl for search input */
   searchControl = new FormControl<string>('', { nonNullable: true });
 
-  /* searchTypeControl - FormControl for search type (title or author) */
-  searchTypeControl = new FormControl<'title' | 'author'>('title', { nonNullable: true });
+  /* searchTypeControl - FormControl for search type (title, author, or genre) */
+  searchTypeControl = new FormControl<'title' | 'author' | 'genre'>('title', { nonNullable: true });
+
+  /* genreControl - FormControl for genre selection when search type is genre */
+  genreControl = new FormControl<string>('', { nonNullable: true });
 
   /* filterForm - reactive form containing 3 filter controls */
   filterForm = new FormGroup({
@@ -126,6 +129,16 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchQuery$.next(value);
     });
 
+    // Auto-trigger search when genre is selected
+    this.genreControl.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(genre => {
+      if (this.searchTypeControl.value === 'genre' && genre) {
+        // Trigger search by emitting empty query since genre search doesn't need text query
+        this.searchQuery$.next('');
+      }
+    });
+
     combineLatest([
       this.searchQuery$,
       this.filterForm.valueChanges.pipe(
@@ -133,6 +146,9 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       ),
       this.searchTypeControl.valueChanges.pipe(
         startWith(this.searchTypeControl.value)
+      ),
+      this.genreControl.valueChanges.pipe(
+        startWith(this.genreControl.value)
       )
     ]).pipe(
       // wait 300ms after user stops typing
@@ -143,7 +159,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
           prev[1].author === curr[1].author &&
           prev[1].year === curr[1].year &&
           prev[1].subject === curr[1].subject &&
-          prev[2] === curr[2];
+          prev[2] === curr[2] &&
+          prev[3] === curr[3];
       }),
       tap(() => {
         this.isLoading = true;
@@ -152,13 +169,29 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
         this.hasMoreResults = true;
       }),
       // switch map for cancelling outdated requests
-      switchMap(([query, filters, searchType]) => {
-        const searchFilters: SearchFilters = {
-          author: filters.author || undefined,
-          year: filters.year || undefined,
-          subject: filters.subject || undefined
-        };
-        return this.bookService.searchBooks(query, searchFilters, 1, searchType);
+      switchMap(([query, filters, searchType, genre]) => {
+        if (searchType === 'genre') {
+          // For genre search, only search if a genre is actually selected
+          if (!genre || genre.trim() === '') {
+            return of({books: [], totalResults: 0});
+          }
+          
+          const searchFilters: SearchFilters = {
+            author: filters.author || undefined,
+            year: filters.year || undefined,
+            subject: genre || undefined
+          };
+          // Use a generic query or empty string for genre searches
+          return this.bookService.searchBooks('*', searchFilters, 1, 'title');
+        } else {
+          // Regular title/author search
+          const searchFilters: SearchFilters = {
+            author: filters.author || undefined,
+            year: filters.year || undefined,
+            subject: filters.subject || undefined
+          };
+          return this.bookService.searchBooks(query, searchFilters, 1, searchType);
+        }
       }),
       tap(result => {
         this.books = result.books;
@@ -221,16 +254,24 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    // Don't load more if genre search is selected but no genre is chosen
+    if (this.searchTypeControl.value === 'genre' && (!this.genreControl.value || this.genreControl.value.trim() === '')) {
+      return;
+    }
+
     this.isLoadingMore = true;
     this.currentPage++;
 
     const searchFilters: SearchFilters = {
       author: this.filterForm.value.author || undefined,
       year: this.filterForm.value.year || undefined,
-      subject: this.filterForm.value.subject || undefined
+      subject: this.searchTypeControl.value === 'genre' ? this.genreControl.value || undefined : this.filterForm.value.subject || undefined
     };
 
-    this.bookService.searchBooks(this.searchQuery$.value, searchFilters, this.currentPage, this.searchTypeControl.value)
+    const query = this.searchTypeControl.value === 'genre' ? '*' : this.searchQuery$.value;
+    const searchType: 'title' | 'author' = this.searchTypeControl.value === 'genre' ? 'title' : this.searchTypeControl.value as 'title' | 'author';
+
+    this.bookService.searchBooks(query, searchFilters, this.currentPage, searchType)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         const previousCount = this.books.length;
@@ -253,6 +294,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   clearFilters(): void {
     // Clear the search input
     this.searchControl.setValue('');
+    // Clear the genre control
+    this.genreControl.setValue('');
     // Clear the filters
     this.filterForm.reset({
       author: '',
