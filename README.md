@@ -1,11 +1,11 @@
 # Book Explorer
 
-A modern Angular application that demonstrates reactive programming principles through book search and discovery. Built with a reactive-first approach using RxJS streams, this app showcases efficient API integration, real-time search with intelligent debouncing, and a comprehensive favorites system. The application emphasizes user experience through smooth animations, dark/light theming, and responsive design while maintaining clean architecture with standalone components and service-based data management.
+An Angular application that demonstrates reactive programming principles through book search and discovery. Built with a reactive-first approach using RxJS streams, this app showcases efficient API integration, real-time search with intelligent debouncing, and a comprehensive favorites system. The application emphasizes user experience through smooth animations, dark/light theming, and responsive design while maintaining clean architecture with standalone components and service-based data management.
 
 ## Technologies Used
 
 - **Angular 20**: Latest framework with standalone components and signals
-- **RxJS 7.8**: Reactive programming for search pipeline and state management  
+- **RxJS**: Reactive programming for search pipeline and state management  
 - **Angular Material**: UI components with comprehensive theming system
 - **GSAP**: Smooth animations and micro-interactions
 - **TypeScript**: Type-safe development with strict mode
