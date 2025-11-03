@@ -85,6 +85,19 @@
   }
 }
 
+// Dark theme overrides with maximum specificity
+:host-context(.dark-theme) .book-details .detail-card {
+  background: #2d2d2d !important;
+  color: #ffffff !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.dark-theme .book-details .detail-card {
+  background: #2d2d2d !important;
+  color: #ffffff !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
 .book-header {
   display: flex;
   gap: 32px;
@@ -279,82 +292,4 @@
   }
 }
 
-// Dark mode overrides
-.dark-theme {
-  .detail-card {
-    background: linear-gradient(to bottom, rgba(45, 45, 45, 1), rgba(45, 45, 45, 0.98)) !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-  }
 
-  .book-title {
-    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .back-button {
-    background: linear-gradient(135deg, #90caf9 0%, #ce93d8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    mat-icon {
-      background: linear-gradient(135deg, #90caf9 0%, #ce93d8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-  }
-
-  .description-section {
-    background: rgba(144, 202, 249, 0.08) !important;
-    border-left-color: #90caf9 !important;
-
-    h2 {
-      color: #90caf9 !important;
-    }
-
-    .description-text {
-      color: rgba(255, 255, 255, 0.9) !important;
-    }
-  }
-
-  .subjects-section {
-    h2 {
-      color: #90caf9 !important;
-
-      mat-icon {
-        color: #90caf9 !important;
-      }
-    }
-
-    ::ng-deep mat-chip,
-    ::ng-deep .mat-mdc-chip,
-    ::ng-deep .mdc-evolution-chip {
-      background: linear-gradient(135deg, rgba(144, 202, 249, 0.15), rgba(206, 147, 216, 0.15)) !important;
-      color: #90caf9 !important;
-      border: 2px solid rgba(144, 202, 249, 0.4) !important;
-
-      &:hover {
-        background: linear-gradient(135deg, rgba(144, 202, 249, 0.25), rgba(206, 147, 216, 0.25)) !important;
-        border-color: rgba(144, 202, 249, 0.7) !important;
-      }
-
-      .mat-mdc-chip-action-label,
-      .mdc-evolution-chip__text-label {
-        color: #90caf9 !important;
-      }
-    }
-  }
-
-  .book-authors mat-icon,
-  .metadata-item mat-icon,
-  .description-section mat-icon {
-    color: #90caf9 !important;
-  }
-
-  .favorite-section {
-    border-top-color: rgba(255, 255, 255, 0.1) !important;
-  }
-}

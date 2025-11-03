@@ -26,6 +26,12 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Search component surfaces
+  --search-surface: rgba(255, 255, 255, 1);
+  --search-surface-hover: rgba(255, 255, 255, 1);
+  --filters-surface: rgba(255, 255, 255, 0.4);
+  --filters-surface-hover: rgba(255, 255, 255, 0.6);
 }
 
 .dark-theme {
@@ -38,6 +44,12 @@
   --divider-color: rgba(255, 255, 255, 0.12);
   --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
   --filter-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+
+  // Search component surfaces - swapped for dark theme
+  --search-surface: rgba(45, 45, 45, 0.8);
+  --search-surface-hover: rgba(45, 45, 45, 0.9);
+  --filters-surface: rgba(45, 45, 45, 0.3);
+  --filters-surface-hover: rgba(45, 45, 45, 0.5);
 
   .mat-mdc-card {
     background-color: var(--surface-color) !important;

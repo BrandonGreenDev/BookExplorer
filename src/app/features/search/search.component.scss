@@ -2,6 +2,12 @@
   flex: 1 1 auto;
 }
 
+.app-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
 .search-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -11,7 +17,7 @@
 .search-section {
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-2xl);  
-  background: var(--surface-elevated);
+  background: var(--search-surface);
   border-radius: var(--radius-lg);
   box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
   border: 1px solid rgba(102, 126, 234, 0.2);
@@ -32,6 +38,7 @@
   }
 
   &:hover {
+    background: var(--search-surface-hover);
     box-shadow: 0 12px 40px rgba(102, 126, 234, 0.2);
     transform: translateY(-3px);
   }
@@ -80,14 +87,14 @@
 .filters-section {
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--filters-surface);
   border-radius: var(--radius-md);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all var(--transition-normal);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--filters-surface-hover);
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   }
 
@@ -267,39 +274,4 @@
   }
 }
 
-// Dark theme adjustments
-.dark-theme {
-  .search-section {
-    background: rgba(45, 45, 45, 0.8);
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 
-    &::before {
-      background: linear-gradient(135deg, rgba(144, 202, 249, 0.05) 0%, rgba(206, 147, 216, 0.05) 100%);
-    }
-
-    &:hover {
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .search-field .mat-mdc-form-field-flex {
-      background: rgba(60, 60, 60, 0.8);
-      
-      &.mat-focused {
-        background: rgba(60, 60, 60, 1);
-        box-shadow: 0 6px 30px rgba(144, 202, 249, 0.2);
-      }
-    }
-  }
-
-  .filters-section {
-    background: rgba(45, 45, 45, 0.3);
-    border-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-
-    &:hover {
-      background: rgba(45, 45, 45, 0.5);
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
-    }
-  }
-}

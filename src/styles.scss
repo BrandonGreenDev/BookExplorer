@@ -152,3 +152,10 @@ body::after {
   opacity: 0.4;
   filter: brightness(0.8);
 }
+
+/* Global dark theme overrides for book detail component */
+.dark-theme .book-details .detail-card {
+  background: #2d2d2d !important;
+  color: #ffffff !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}

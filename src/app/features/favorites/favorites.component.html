@@ -1,4 +1,9 @@
 <div class="favorites-container">
+  <button mat-raised-button color="primary" class="back-button" routerLink="/search">
+    <mat-icon>arrow_back</mat-icon>
+    Back to Search
+  </button>
+
   <header class="favorites-header">
     <h1>My Favorites</h1>
     <p class="favorites-count">{{ favoritesService.count() }} book{{ favoritesService.count() === 1 ? '' : 's' }}</p>
