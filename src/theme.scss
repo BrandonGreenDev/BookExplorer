@@ -87,9 +87,9 @@
     border-color: #90caf9 !important;
   }
 
-  // Notch background fix
+  // Remove notch background to prevent black boxes
   .mdc-notched-outline__notch {
-    background-color: var(--background-color) !important;
+    background-color: transparent !important;
   }
 
   // Placeholders
