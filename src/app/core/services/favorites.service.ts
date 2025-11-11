@@ -11,6 +11,7 @@ export class FavoritesService {
 
   count = computed(() => this.favorites().length);
 
+  // this auto changes anytime favorites() changes
   constructor() {
     effect(() => {
       this.saveToStorage(this.favorites());

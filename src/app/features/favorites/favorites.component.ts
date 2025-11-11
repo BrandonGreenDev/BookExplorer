@@ -24,9 +24,9 @@ export class FavoritesComponent implements OnInit {
     this.animateCards();
   }
 
-  onBookClick(workKey: string): void {
-    this.router.navigate(['/book', workKey]);
-  }
+onBookClick(workKey: string): void {
+  this.router.navigate(['/book', workKey]);
+}
 
   private animateCards(): void {
     gsap.fromTo(
