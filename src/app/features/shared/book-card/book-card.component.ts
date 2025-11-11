@@ -46,6 +46,7 @@ export class BookCardComponent implements OnInit {
   /**
    * onCardClick handles click event on the card. called when user clicks anywhere on the card, emits the book.key to parent component via bookClick event, parent (SearchComponent) catches event and navigates to detail view */
   onCardClick(): void {
+    console.log('BookCardComponent - Emitting book.key:', this.book.key);
     this.bookClick.emit(this.book.key);
   }
 

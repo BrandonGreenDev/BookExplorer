@@ -24,9 +24,14 @@ export class FavoritesComponent implements OnInit {
     this.animateCards();
   }
 
-onBookClick(workKey: string): void {
-  this.router.navigate(['/book', workKey]);
-}
+  onBookClick(workKey: string): void {
+    // Extract work ID from key
+    console.log('FavoritesComponent - Original workKey:', workKey);
+    const workId = workKey.replace('/works/', '');
+    console.log('FavoritesComponent - Cleaned workId:', workId);
+    console.log('FavoritesComponent - Navigating to:', ['/book', workId]);
+    this.router.navigate(['/book', workId]);
+  }
 
   private animateCards(): void {
     gsap.fromTo(
