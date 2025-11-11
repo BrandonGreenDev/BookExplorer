@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FavoritesService } from '../../core/services/favorites.service';
+import { SearchStateService } from '../../core/services/search-state.service';
 import { BookCardComponent } from '../shared/book-card/book-card.component';
 import gsap from 'gsap';
 
@@ -17,7 +18,8 @@ export class FavoritesComponent implements OnInit {
 
   constructor(
     public favoritesService: FavoritesService,
-    private router: Router
+    private router: Router,
+    private searchStateService: SearchStateService
   ) { }
 
   ngOnInit(): void {
@@ -25,6 +27,13 @@ export class FavoritesComponent implements OnInit {
   }
 
   onBookClick(workKey: string): void {
+    // Save current search state before navigating away (preserves user's search when they return)
+    const savedState = this.searchStateService.getState();
+    if (savedState) {
+      // Re-save the existing state to maintain it
+      this.searchStateService.saveState(savedState);
+    }
+
     // Extract work ID from key
     console.log('FavoritesComponent - Original workKey:', workKey);
     const workId = workKey.replace('/works/', '');
